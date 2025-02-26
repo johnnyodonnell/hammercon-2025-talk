@@ -7,9 +7,9 @@
 #include <sys/select.h>
 
 
-#define PORT 1738
-// #define BUFFER_SIZE 10 // Small buffer to trigger overflow easily
-#define BUFFER_SIZE 5000 // Larger buffer
+#define PORT 8080
+#define BUFFER_SIZE 10 // Small buffer to trigger overflow easily
+// #define BUFFER_SIZE 5000 // Larger buffer
 
 void handle_client(int client_socket) {
     char buffer[BUFFER_SIZE];
