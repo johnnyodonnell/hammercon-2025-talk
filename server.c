@@ -7,6 +7,7 @@
 
 #define PORT 1738
 #define BUFFER_SIZE 10 // Small buffer to trigger overflow easily
+// #define BUFFER_SIZE 1000 // Larger buffer
 
 void handle_client(int client_socket) {
     char buffer[BUFFER_SIZE];
