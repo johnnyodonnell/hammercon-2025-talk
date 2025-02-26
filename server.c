@@ -3,27 +3,23 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <fcntl.h>
+#include <sys/select.h>
 
 
 #define PORT 1738
-#define BUFFER_SIZE 10 // Small buffer to trigger overflow easily
-// #define BUFFER_SIZE 1000 // Larger buffer
+// #define BUFFER_SIZE 10 // Small buffer to trigger overflow easily
+#define BUFFER_SIZE 4000 // Larger buffer
 
 void handle_client(int client_socket) {
     char buffer[BUFFER_SIZE];
 
     printf("Client connected. Waiting for input...\n");
 
-    // Vulnerable function: read() allows buffer overflow if input is too large
-    ssize_t bytes_received = read(client_socket, buffer, 512); // Reading more than buffer size
-    if (bytes_received < 0) {
-        perror("Read error");
-        close(client_socket);
-        return;
-    }
+    ssize_t bytes_received = 0;
+    bytes_received = recv(client_socket, buffer, 5000, 0);
 
-    buffer[bytes_received] = '\0';  // No bounds checking before writing here
-
+    printf("Number of bytes: %zu\n", bytes_received);
     printf("Received: %s\n", buffer); // Possible overflow if buffer is overwritten
 
     // Echo the received message back to the client
