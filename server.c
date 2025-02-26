@@ -9,7 +9,7 @@
 
 #define PORT 1738
 // #define BUFFER_SIZE 10 // Small buffer to trigger overflow easily
-#define BUFFER_SIZE 4000 // Larger buffer
+#define BUFFER_SIZE 5000 // Larger buffer
 
 void handle_client(int client_socket) {
     char buffer[BUFFER_SIZE];
@@ -17,7 +17,7 @@ void handle_client(int client_socket) {
     printf("Client connected. Waiting for input...\n");
 
     ssize_t bytes_received = 0;
-    bytes_received = recv(client_socket, buffer, 5000, 0);
+    bytes_received = recv(client_socket, buffer, 10000, 0);
 
     printf("Number of bytes: %zu\n", bytes_received);
     printf("Received: %s\n", buffer); // Possible overflow if buffer is overwritten
